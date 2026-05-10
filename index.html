@@ -143,12 +143,33 @@
     .close-btn:hover {
       background-color: #ad1457;
     }
+
+    .music-btn {
+      background-color: #f48fb1;
+      color: #880e4f;
+      border: 2px solid #d81b60;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .music-btn:hover {
+      background-color: #d81b60;
+      color: white;
+    }
   </style>
 </head>
 <body>
 
   <h1>Feliz Día Mamá</h1>
-
+  <audio id="miMusica" src="cancion.mp3" loop></audio>
+  
+  <button id="btnMusica" class="music-btn" onclick="toggleMusica()">🎵 Reproducir música</button>
   <div class="box">
     <div class="chocolates-grid">
       <div class="chocolate" onclick="abrirModal('modal1')">🍬</div>
@@ -200,6 +221,27 @@
     }
     function cerrarModal(id) {
       document.getElementById(id).style.display = 'none';
+    }
+
+    function abrirModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function cerrarModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    /* NUEVA FUNCIÓN PARA LA MÚSICA */
+    function toggleMusica() {
+      let musica = document.getElementById('miMusica');
+      let boton = document.getElementById('btnMusica');
+
+      if (musica.paused) {
+        musica.play();
+        boton.innerHTML = "⏸️ Pausar música";
+      } else {
+        musica.pause();
+        boton.innerHTML = "🎵 Reproducir música";
+      }
     }
   </script>
 
