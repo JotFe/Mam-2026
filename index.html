@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Día Mamá</title>
+  <style>
+    /* 1. ESTILOS GENERALES Y FONDO */
+    body {
+      background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+      font-family: 'Georgia', serif; /* Da un toque más elegante */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      min-height: 100vh;
+      color: #880e4f;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 8vw, 3.5rem); /* ¡Magia responsiva! Ajusta el tamaño según la pantalla */
+      margin-top: 3rem;
+      font-style: italic;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      text-align: center; /* Asegura que si se divide en dos líneas, ambas estén centradas */
+      padding: 0 15px; /* Le da un poquito de margen a los lados para que no toque los bordes del celular */
+      box-sizing: border-box; /* Evita que el padding haga más ancho el elemento */
+    }
+
+    /* 2. LA CAJA Y LOS CHOCOLATES */
+    .box {
+      background-color: #3e2723; /* Color chocolate oscuro */
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      position: relative;
+      margin-top: 2rem;
+      border: 4px solid #5d4037;
+    }
+
+    .chocolates-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .chocolate {
+      width: 90px;
+      height: 90px;
+      background-color: #fff;
+      border-radius: 50%; /* Hace que sean circulares */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3rem;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: inset 0 -5px 15px rgba(0,0,0,0.15), 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .chocolate:hover {
+      transform: scale(1.1); /* Efecto de agrandarse al pasar el mouse */
+      box-shadow: inset 0 -5px 15px rgba(0,0,0,0.15), 0 8px 16px rgba(0,0,0,0.3);
+    }
+
+    /* 3. LAS TARJETAS EMERGENTES (MODALES) */
+    .modal {
+      display: none; /* Ocultas por defecto */
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.6); /* Fondo oscuro semitransparente */
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    @keyframes popUp {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-content h2 {
+      color: #c2185b;
+      margin-top: 0;
+      font-style: italic;
+      font-size: 1.8rem;
+    }
+
+/* 1. ACTUALIZAMOS LA TARJETA BLANCA */
+    .modal-content {
+      background: #fff0f5;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      /* Cambiamos max-width a 500px y le damos un ancho adaptable del 90% */
+      width: 90%; 
+      max-width: 500px; 
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      position: relative;
+      animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* 2. ACTUALIZAMOS LA IMAGEN PARA QUE NUNCA SE CORTE */
+/* BUSCA ESTA SECCIÓN Y REEMPLÁZALA COMPLETAMENTE */
+    .modal-content img {
+      /* === Estilos para el borde y esquinas (ya los tenías, pero los confirmo) === */
+      border-radius: 10px;
+      border: 3px solid #f8bbd0;
+      margin-bottom: 15px;
+
+      /* === AQUÍ ESTÁ EL TRUCO PARA QUE NO SE CORTE === */
+      max-width: 100%;       /* Asegura que no sea más ancha que la tarjeta */
+      height: auto;          /* Permite que el navegador calcule el alto correcto según la proporción de la foto */
+      object-fit: contain;   /* FORZA a que TODA la imagen quepa dentro de la caja sin recortarla (verás franjas si no cabe) */
+      display: block;        /* Ayuda a centrarla */
+      margin: 0 auto;        /* Centra horizontalmente */
+      
+      /* === Esta línea es CRUCIAL para tu foto vertical === */
+      max-height: 55vh;      /* No permite que la foto sea más alta del 55% de la altura de la pantalla del celular. */
+                             /* Le da espacio al texto y al botón abajo. */
+    }
+
+    .modal-content p {
+      font-size: 1.1rem;
+      color: #444;
+      font-family: sans-serif;
+      line-height: 1.5;
+    }
+
+    .close-btn {
+      background-color: #d81b60;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      margin-top: 15px;
+      transition: background-color 0.2s;
+    }
+
+    .close-btn:hover {
+      background-color: #ad1457;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Feliz Día Mamá</h1>
+
+  <div class="box">
+    <div class="chocolates-grid">
+      <div class="chocolate" onclick="abrirModal('modal1')">🍬</div>
+      <div class="chocolate" onclick="abrirModal('modal2')">🧁</div>
+      <div class="chocolate" onclick="abrirModal('modal3')">🍫</div>
+      <div class="chocolate" onclick="abrirModal('modal4')">🍩</div>
+    </div>
+  </div>
+
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h2>Te amo infinito</h2>
+      <img src="mama (1).jpg" alt="Mamá">
+      <p>No hay palabras suficientes para describir cuánto te queremos. ¡Feliz día mamá!</p>
+      <button class="close-btn" onclick="cerrarModal('modal1')">Cerrar</button>
+    </div>
+  </div>
+
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <h2>Gracias por todo</h2>
+      <img src="mama (2).jpg" alt="Mamá">
+      <p>Mamá, gracias por tu amor incondicional y por siempre estar ahí para nosotros.</p>
+      <button class="close-btn" onclick="cerrarModal('modal2')">Cerrar</button>
+    </div>
+  </div>
+
+  <div id="modal3" class="modal">
+    <div class="modal-content">
+      <h2>Eres mi inspiración</h2>
+      <img src="mama (3).jpg" alt="Mamá">
+      <p>Admiro tu fuerza y tu corazón. Eres el mejor ejemplo que pude tener en la vida.</p>
+      <button class="close-btn" onclick="cerrarModal('modal3')">Cerrar</button>
+    </div>
+  </div>
+
+  <div id="modal4" class="modal">
+    <div class="modal-content">
+      <h2>Mi lugar favorito</h2>
+      <img src="mama (4).jpg" alt="Mamá">
+      <p>Mi lugar favorito en el mundo siempre será compartiendo contigo. Gracias por darme la vida.</p>
+      <button class="close-btn" onclick="cerrarModal('modal4')">Cerrar</button>
+    </div>
+  </div>
+
+  <script>
+    function abrirModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function cerrarModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
